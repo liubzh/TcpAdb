@@ -1,4 +1,4 @@
-package com.binzo.adb.tcp;
+package com.binzo.android.terminal;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -97,11 +97,15 @@ public class ShellCommander {
                 errorResult = new BufferedReader(new InputStreamReader(
                         process.getErrorStream()));
                 String s;
+                s = successResult.readLine();
+                if (s != null) successMsg.append(s);
                 while ((s = successResult.readLine()) != null) {
-                    successMsg.append(s);
+                    successMsg.append("\n").append(s);
                 }
+                s = errorResult.readLine();
+                if (s != null) errorMsg.append(s);
                 while ((s = errorResult.readLine()) != null) {
-                    errorMsg.append(s);
+                    errorMsg.append("\n").append(s);
                 }
             }
         } catch (IOException e) {
